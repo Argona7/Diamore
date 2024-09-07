@@ -104,32 +104,36 @@ def buy(type_upgrade: str, headers: dict, max_attempts: int) -> bool:
 # (дальше не выгодно)
 def improvements(headers: dict):
     print(Fore.YELLOW + Style.BRIGHT + "Attempting to upgrade tap and duration......")
-    user = get_user(headers, 3)
-    if user:
-        upgrades = get_upgrades(headers, 3)
-        if upgrades:
-            balance = float(user["balance"])
-            tapPower_price = float(upgrades["tapPower"][1]["price"])
-            tapDuration_price = float(upgrades["tapDuration"][1]["price"])
-            tapPower_level = float(upgrades["tapPower"][0]["level"])
-            tapDuration_level = float(upgrades["tapDuration"][0]["level"])
-            if tapPower_level >= 12 and tapDuration_level >= 12:
-                print(Fore.LIGHTMAGENTA_EX + "Skills are pumped up to 12 levels or more")
+    while True:
+        user = get_user(headers, 3)
+        if user:
+            upgrades = get_upgrades(headers, 3)
+            if upgrades:
+                balance = float(user["balance"])
+                tapPower_price = float(upgrades["tapPower"][1]["price"])
+                tapDuration_price = float(upgrades["tapDuration"][1]["price"])
+                tapPower_level = float(upgrades["tapPower"][0]["level"])
+                tapDuration_level = float(upgrades["tapDuration"][0]["level"])
+                if tapPower_level >= 12 and tapDuration_level >= 12:
+                    print(Fore.LIGHTMAGENTA_EX + "Skills are pumped up to 12 levels or more")
+                    time.sleep(2)
+                    return
+                if balance >= tapPower_price + tapDuration_price:
+                    buy("tapPower", headers, 3)
+                    buy("tapDuration", headers, 3)
+                    print(Fore.LIGHTGREEN_EX + "Successful!")
+                else:
+                    print(Fore.LIGHTMAGENTA_EX + "Not enough points!")
+                    time.sleep(2)
+                    return
+            else:
+                print(Fore.LIGHTRED_EX + "Failed to get upgrades")
                 time.sleep(2)
                 return
-            if balance >= tapPower_price + tapDuration_price:
-                buy("tapPower", headers, 3)
-                buy("tapDuration", headers, 3)
-                print(Fore.LIGHTGREEN_EX + "Successful!")
-            else:
-                print(Fore.LIGHTMAGENTA_EX + "Not enough points!")
-                time.sleep(2)
         else:
-            print(Fore.LIGHTRED_EX + "Failed to get upgrades")
+            print(Fore.LIGHTRED_EX + "Failed to get user")
             time.sleep(2)
-    else:
-        print(Fore.LIGHTRED_EX + "Failed to get user")
-        time.sleep(2)
+            return
 
 
 # {"total":5, "available":0}
