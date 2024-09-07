@@ -61,3 +61,5 @@ You have to follow the same pattern as in [How to track a request](#how-to-track
 After that, once you have properly modified the file, restart the application
 You will be prompted to exclude accounts from the automation list, simply type the account name or account names with a space.  
 Enjoy the app!
+
+**Who's not registered**: https://t.me/DiamoreCryptoBot/app?startapp=1087108725
