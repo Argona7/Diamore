@@ -259,7 +259,7 @@ def main():
                     "Authorization": f"Token {accounts_dict[name][0]}",
                     "user-agent": accounts_dict[name][1],
                     "accept": "application/json, text/plain, */*",
-                    "origin": "https://telegram.blum.codes",
+                    "origin": "https://app.diamore.co",
                     "referer": "https://app.diamore.co/",
                     "accept-language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7"
                 }
