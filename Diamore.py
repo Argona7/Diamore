@@ -3,12 +3,14 @@ import json
 import time
 import random
 import requests
-from datetime import datetime
 
+from ctypes import windll
+from datetime import datetime
 from text import print_name, clear_console
 from colorama import Fore, Style
 from typing import Union
 
+windll.kernel32.SetConsoleTitleW("Diamore Hack by Argona")
 
 # {"Account Name":["query","user-agent"]}
 def get_data_from_file() -> Union[dict, bool]:
@@ -122,6 +124,7 @@ def improvements(headers: dict):
                     buy("tapPower", headers, 3)
                     buy("tapDuration", headers, 3)
                     print(Fore.LIGHTGREEN_EX + "Successful!")
+                    time.sleep(1.5)
                 else:
                     print(Fore.LIGHTMAGENTA_EX + "Not enough points!")
                     time.sleep(2)
@@ -199,7 +202,7 @@ def post_taps(upgrades: dict, headers: dict, max_attempts: int) -> bool:
         taps = 28
         taps_power = float(upgrades["tapPower"][1]["value"])
         taps_duration = upgrades["tapDuration"][1]["durationMil"] // 1000
-        points = int(taps * taps_power * taps_duration + random.randint(-50, 50))
+        points = int(taps * taps_power * taps_duration + random.randint(-100, 50))
 
         print(Fore.YELLOW + Style.BRIGHT + "Attempting to post taps......")
         time.sleep(taps_duration)
